@@ -1,0 +1,1869 @@
+{
+ "schemaVersion": 1,
+ "description": "Hand-curated subset of the AWS Service Authorization Reference and CloudTrail event names. Not exhaustive; see DATA.md.",
+ "services": [
+  {
+   "prefix": "s3",
+   "name": "Amazon S3",
+   "eventSource": "s3.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "bucket",
+     "arn": "arn:${Partition}:s3:::${BucketName}",
+     "cloudTrailType": "AWS::S3::Bucket",
+     "params": {
+      "BucketName": [
+       "bucketName"
+      ]
+     }
+    },
+    {
+     "name": "object",
+     "arn": "arn:${Partition}:s3:::${BucketName}/${ObjectName}",
+     "cloudTrailType": "AWS::S3::Object",
+     "params": {
+      "BucketName": [
+       "bucketName"
+      ],
+      "ObjectName": [
+       "key",
+       "delete.Object[].Key"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListAllMyBuckets",
+     "access": "List",
+     "resources": [],
+     "events": [
+      "ListBuckets"
+     ]
+    },
+    {
+     "name": "ListBucket",
+     "access": "List",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "ListObjects",
+      "ListObjectsV2",
+      "HeadBucket"
+     ]
+    },
+    {
+     "name": "ListBucketVersions",
+     "access": "List",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "ListObjectVersions"
+     ]
+    },
+    {
+     "name": "ListBucketMultipartUploads",
+     "access": "List",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "ListMultipartUploads"
+     ]
+    },
+    {
+     "name": "GetBucketLocation",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "GetBucketPolicy",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "PutBucketPolicy",
+     "access": "Permissions management",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "DeleteBucketPolicy",
+     "access": "Permissions management",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "GetBucketAcl",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "PutBucketAcl",
+     "access": "Permissions management",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "GetBucketTagging",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "PutBucketTagging",
+     "access": "Tagging",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "GetBucketVersioning",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "PutBucketVersioning",
+     "access": "Write",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "GetEncryptionConfiguration",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "GetBucketEncryption"
+     ]
+    },
+    {
+     "name": "PutEncryptionConfiguration",
+     "access": "Write",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "PutBucketEncryption"
+     ]
+    },
+    {
+     "name": "GetLifecycleConfiguration",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "GetBucketLifecycle"
+     ]
+    },
+    {
+     "name": "PutLifecycleConfiguration",
+     "access": "Write",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "PutBucketLifecycle"
+     ]
+    },
+    {
+     "name": "GetBucketPublicAccessBlock",
+     "access": "Read",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "GetPublicAccessBlock"
+     ]
+    },
+    {
+     "name": "PutBucketPublicAccessBlock",
+     "access": "Permissions management",
+     "resources": [
+      "bucket"
+     ],
+     "events": [
+      "PutPublicAccessBlock"
+     ]
+    },
+    {
+     "name": "CreateBucket",
+     "access": "Write",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "DeleteBucket",
+     "access": "Write",
+     "resources": [
+      "bucket"
+     ]
+    },
+    {
+     "name": "GetObject",
+     "access": "Read",
+     "resources": [
+      "object"
+     ],
+     "events": [
+      "GetObject",
+      "HeadObject"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "GetObjectVersion",
+     "access": "Read",
+     "resources": [
+      "object"
+     ],
+     "events": [],
+     "dataEvent": true
+    },
+    {
+     "name": "PutObject",
+     "access": "Write",
+     "resources": [
+      "object"
+     ],
+     "events": [
+      "PutObject",
+      "CopyObject",
+      "CreateMultipartUpload",
+      "UploadPart",
+      "CompleteMultipartUpload"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "DeleteObject",
+     "access": "Write",
+     "resources": [
+      "object"
+     ],
+     "events": [
+      "DeleteObject",
+      "DeleteObjects"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "AbortMultipartUpload",
+     "access": "Write",
+     "resources": [
+      "object"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "ListMultipartUploadParts",
+     "access": "List",
+     "resources": [
+      "object"
+     ],
+     "events": [
+      "ListParts"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "GetObjectAcl",
+     "access": "Read",
+     "resources": [
+      "object"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "PutObjectAcl",
+     "access": "Permissions management",
+     "resources": [
+      "object"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "GetObjectTagging",
+     "access": "Read",
+     "resources": [
+      "object"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "PutObjectTagging",
+     "access": "Tagging",
+     "resources": [
+      "object"
+     ],
+     "dataEvent": true
+    }
+   ],
+   "extraEvents": [
+    {
+     "event": "CopyObject",
+     "action": "GetObject",
+     "params": {
+      "BucketName": [
+       "x-amz-copy-source|copySourceBucket"
+      ],
+      "ObjectName": [
+       "x-amz-copy-source|copySourceKey"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "prefix": "dynamodb",
+   "name": "Amazon DynamoDB",
+   "eventSource": "dynamodb.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "index",
+     "arn": "arn:${Partition}:dynamodb:${Region}:${Account}:table/${TableName}/index/${IndexName}",
+     "params": {
+      "TableName": [
+       "tableName"
+      ],
+      "IndexName": [
+       "indexName"
+      ]
+     }
+    },
+    {
+     "name": "stream",
+     "arn": "arn:${Partition}:dynamodb:${Region}:${Account}:table/${TableName}/stream/${StreamLabel}",
+     "arnParams": [
+      "streamArn"
+     ],
+     "params": {}
+    },
+    {
+     "name": "table",
+     "arn": "arn:${Partition}:dynamodb:${Region}:${Account}:table/${TableName}",
+     "cloudTrailType": "AWS::DynamoDB::Table",
+     "params": {
+      "TableName": [
+       "tableName",
+       "requestItems.{}",
+       "transactItems[].get.tableName"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListTables",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "ListStreams",
+     "access": "Read",
+     "resources": []
+    },
+    {
+     "name": "DescribeTable",
+     "access": "Read",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "DescribeTimeToLive",
+     "access": "Read",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "ListTagsOfResource",
+     "access": "Read",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "GetItem",
+     "access": "Read",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "BatchGetItem",
+     "access": "Read",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "ConditionCheckItem",
+     "access": "Read",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "Query",
+     "access": "Read",
+     "resources": [
+      "index",
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "Scan",
+     "access": "Read",
+     "resources": [
+      "index",
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "PutItem",
+     "access": "Write",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "UpdateItem",
+     "access": "Write",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "DeleteItem",
+     "access": "Write",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "BatchWriteItem",
+     "access": "Write",
+     "resources": [
+      "table"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "CreateTable",
+     "access": "Write",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "DeleteTable",
+     "access": "Write",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "UpdateTable",
+     "access": "Write",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "UpdateTimeToLive",
+     "access": "Write",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "DescribeStream",
+     "access": "Read",
+     "resources": [
+      "stream"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "GetRecords",
+     "access": "Read",
+     "resources": [
+      "stream"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "GetShardIterator",
+     "access": "Read",
+     "resources": [
+      "stream"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "TagResource",
+     "access": "Tagging",
+     "resources": [
+      "table"
+     ]
+    },
+    {
+     "name": "UntagResource",
+     "access": "Tagging",
+     "resources": [
+      "table"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "lambda",
+   "name": "AWS Lambda",
+   "eventSource": "lambda.amazonaws.com",
+   "stripEventSuffix": true,
+   "resourceTypes": [
+    {
+     "name": "function",
+     "arn": "arn:${Partition}:lambda:${Region}:${Account}:function:${FunctionName}",
+     "cloudTrailType": "AWS::Lambda::Function",
+     "params": {
+      "FunctionName": [
+       "functionName|lambdaName"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListFunctions",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "GetFunction",
+     "access": "Read",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "GetFunctionConfiguration",
+     "access": "Read",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "GetPolicy",
+     "access": "Read",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "ListTags",
+     "access": "Read",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "ListVersionsByFunction",
+     "access": "List",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "InvokeFunction",
+     "access": "Write",
+     "resources": [
+      "function"
+     ],
+     "events": [
+      "Invoke"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "CreateFunction",
+     "access": "Write",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "DeleteFunction",
+     "access": "Write",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "UpdateFunctionCode",
+     "access": "Write",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "UpdateFunctionConfiguration",
+     "access": "Write",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "PublishVersion",
+     "access": "Write",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "AddPermission",
+     "access": "Permissions management",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "RemovePermission",
+     "access": "Permissions management",
+     "resources": [
+      "function"
+     ]
+    },
+    {
+     "name": "TagResource",
+     "access": "Tagging",
+     "resources": [
+      "function"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "sqs",
+   "name": "Amazon SQS",
+   "eventSource": "sqs.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "queue",
+     "arn": "arn:${Partition}:sqs:${Region}:${Account}:${QueueName}",
+     "cloudTrailType": "AWS::SQS::Queue",
+     "params": {
+      "QueueName": [
+       "queueUrl|lastPathSegment",
+       "queueName"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListQueues",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "GetQueueUrl",
+     "access": "Read",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "GetQueueAttributes",
+     "access": "Read",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "ListQueueTags",
+     "access": "Read",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "SendMessage",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ],
+     "events": [
+      "SendMessage",
+      "SendMessageBatch"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "ReceiveMessage",
+     "access": "Read",
+     "resources": [
+      "queue"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "DeleteMessage",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ],
+     "events": [
+      "DeleteMessage",
+      "DeleteMessageBatch"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "ChangeMessageVisibility",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ],
+     "events": [
+      "ChangeMessageVisibility",
+      "ChangeMessageVisibilityBatch"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "SetQueueAttributes",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "CreateQueue",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "DeleteQueue",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "PurgeQueue",
+     "access": "Write",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "AddPermission",
+     "access": "Permissions management",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "RemovePermission",
+     "access": "Permissions management",
+     "resources": [
+      "queue"
+     ]
+    },
+    {
+     "name": "TagQueue",
+     "access": "Tagging",
+     "resources": [
+      "queue"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "sns",
+   "name": "Amazon SNS",
+   "eventSource": "sns.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "topic",
+     "arn": "arn:${Partition}:sns:${Region}:${Account}:${TopicName}",
+     "cloudTrailType": "AWS::SNS::Topic",
+     "arnParams": [
+      "topicArn"
+     ],
+     "params": {
+      "TopicName": [
+       "name"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListTopics",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "ListSubscriptions",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "ListSubscriptionsByTopic",
+     "access": "List",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "GetTopicAttributes",
+     "access": "Read",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "Publish",
+     "access": "Write",
+     "resources": [
+      "topic"
+     ],
+     "dataEvent": true
+    },
+    {
+     "name": "Subscribe",
+     "access": "Write",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "CreateTopic",
+     "access": "Write",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "DeleteTopic",
+     "access": "Write",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "SetTopicAttributes",
+     "access": "Write",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "AddPermission",
+     "access": "Permissions management",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "RemovePermission",
+     "access": "Permissions management",
+     "resources": [
+      "topic"
+     ]
+    },
+    {
+     "name": "TagResource",
+     "access": "Tagging",
+     "resources": [
+      "topic"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "kms",
+   "name": "AWS KMS",
+   "eventSource": "kms.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "key",
+     "arn": "arn:${Partition}:kms:${Region}:${Account}:key/${KeyId}",
+     "cloudTrailType": "AWS::KMS::Key",
+     "arnParams": [
+      "keyId"
+     ],
+     "params": {
+      "KeyId": [
+       "keyId|kmsKeyId"
+      ]
+     }
+    },
+    {
+     "name": "alias",
+     "arn": "arn:${Partition}:kms:${Region}:${Account}:alias/${Alias}",
+     "params": {
+      "Alias": [
+       "aliasName|kmsAlias"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListKeys",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "ListAliases",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "CreateKey",
+     "access": "Write",
+     "resources": []
+    },
+    {
+     "name": "DescribeKey",
+     "access": "Read",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "GetKeyPolicy",
+     "access": "Read",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "GetPublicKey",
+     "access": "Read",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "GetKeyRotationStatus",
+     "access": "Read",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "Decrypt",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "Encrypt",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "GenerateDataKey",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "GenerateDataKeyWithoutPlaintext",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "ReEncryptFrom",
+     "access": "Write",
+     "resources": [
+      "key"
+     ],
+     "events": [
+      "ReEncrypt"
+     ]
+    },
+    {
+     "name": "ReEncryptTo",
+     "access": "Write",
+     "resources": [
+      "key"
+     ],
+     "events": [
+      "ReEncrypt"
+     ]
+    },
+    {
+     "name": "Sign",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "Verify",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "ScheduleKeyDeletion",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "EnableKeyRotation",
+     "access": "Write",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "CreateAlias",
+     "access": "Write",
+     "resources": [
+      "alias"
+     ]
+    },
+    {
+     "name": "PutKeyPolicy",
+     "access": "Permissions management",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "CreateGrant",
+     "access": "Permissions management",
+     "resources": [
+      "key"
+     ]
+    },
+    {
+     "name": "RetireGrant",
+     "access": "Permissions management",
+     "resources": [
+      "key"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "secretsmanager",
+   "name": "AWS Secrets Manager",
+   "eventSource": "secretsmanager.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "Secret",
+     "arn": "arn:${Partition}:secretsmanager:${Region}:${Account}:secret:${SecretId}",
+     "cloudTrailType": "AWS::SecretsManager::Secret",
+     "arnParams": [
+      "secretId"
+     ],
+     "params": {
+      "SecretId": [
+       "secretId|secretPattern",
+       "name|secretPattern"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListSecrets",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "GetSecretValue",
+     "access": "Read",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "DescribeSecret",
+     "access": "Read",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "GetResourcePolicy",
+     "access": "Read",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "CreateSecret",
+     "access": "Write",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "PutSecretValue",
+     "access": "Write",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "UpdateSecret",
+     "access": "Write",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "RotateSecret",
+     "access": "Write",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "DeleteSecret",
+     "access": "Write",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "PutResourcePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "Secret"
+     ]
+    },
+    {
+     "name": "TagResource",
+     "access": "Tagging",
+     "resources": [
+      "Secret"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "ssm",
+   "name": "AWS Systems Manager (Parameter Store)",
+   "eventSource": "ssm.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "parameter",
+     "arn": "arn:${Partition}:ssm:${Region}:${Account}:parameter/${ParameterNameWithoutLeadingSlash}",
+     "params": {
+      "ParameterNameWithoutLeadingSlash": [
+       "name|stripLeadingSlash",
+       "names[]|stripLeadingSlash",
+       "path|stripLeadingSlash"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "DescribeParameters",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "GetParameter",
+     "access": "Read",
+     "resources": [
+      "parameter"
+     ]
+    },
+    {
+     "name": "GetParameters",
+     "access": "Read",
+     "resources": [
+      "parameter"
+     ]
+    },
+    {
+     "name": "GetParametersByPath",
+     "access": "Read",
+     "resources": [
+      "parameter"
+     ]
+    },
+    {
+     "name": "GetParameterHistory",
+     "access": "Read",
+     "resources": [
+      "parameter"
+     ]
+    },
+    {
+     "name": "PutParameter",
+     "access": "Write",
+     "resources": [
+      "parameter"
+     ]
+    },
+    {
+     "name": "DeleteParameter",
+     "access": "Write",
+     "resources": [
+      "parameter"
+     ]
+    },
+    {
+     "name": "AddTagsToResource",
+     "access": "Tagging",
+     "resources": [
+      "parameter"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "logs",
+   "name": "Amazon CloudWatch Logs",
+   "eventSource": "logs.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "log-stream",
+     "arn": "arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}",
+     "params": {
+      "LogGroupName": [
+       "logGroupName"
+      ],
+      "LogStreamName": [
+       "logStreamName"
+      ]
+     }
+    },
+    {
+     "name": "log-group",
+     "arn": "arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}",
+     "params": {
+      "LogGroupName": [
+       "logGroupName"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "DescribeLogGroups",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeLogStreams",
+     "access": "List",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "CreateLogGroup",
+     "access": "Write",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "CreateLogStream",
+     "access": "Write",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "DeleteLogGroup",
+     "access": "Write",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "PutRetentionPolicy",
+     "access": "Write",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "PutLogEvents",
+     "access": "Write",
+     "resources": [
+      "log-stream"
+     ],
+     "notLogged": true
+    },
+    {
+     "name": "GetLogEvents",
+     "access": "Read",
+     "resources": [
+      "log-stream"
+     ]
+    },
+    {
+     "name": "FilterLogEvents",
+     "access": "Read",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "StartQuery",
+     "access": "Read",
+     "resources": [
+      "log-group"
+     ]
+    },
+    {
+     "name": "GetQueryResults",
+     "access": "Read",
+     "resources": []
+    },
+    {
+     "name": "TagResource",
+     "access": "Tagging",
+     "resources": [
+      "log-group"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "iam",
+   "name": "AWS Identity and Access Management",
+   "eventSource": "iam.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "role",
+     "arn": "arn:${Partition}:iam::${Account}:role/${RoleNameWithPath}",
+     "cloudTrailType": "AWS::IAM::Role",
+     "params": {
+      "RoleNameWithPath": [
+       "roleName"
+      ]
+     }
+    },
+    {
+     "name": "user",
+     "arn": "arn:${Partition}:iam::${Account}:user/${UserNameWithPath}",
+     "cloudTrailType": "AWS::IAM::User",
+     "params": {
+      "UserNameWithPath": [
+       "userName"
+      ]
+     }
+    },
+    {
+     "name": "group",
+     "arn": "arn:${Partition}:iam::${Account}:group/${GroupNameWithPath}",
+     "params": {
+      "GroupNameWithPath": [
+       "groupName"
+      ]
+     }
+    },
+    {
+     "name": "policy",
+     "arn": "arn:${Partition}:iam::${Account}:policy/${PolicyNameWithPath}",
+     "arnParams": [
+      "policyArn"
+     ],
+     "params": {
+      "PolicyNameWithPath": [
+       "policyName"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "ListUsers",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "ListRoles",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "ListPolicies",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "GetAccountSummary",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "GenerateCredentialReport",
+     "access": "Read",
+     "resources": []
+    },
+    {
+     "name": "GetCredentialReport",
+     "access": "Read",
+     "resources": []
+    },
+    {
+     "name": "GetUser",
+     "access": "Read",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "GetRole",
+     "access": "Read",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "GetPolicy",
+     "access": "Read",
+     "resources": [
+      "policy"
+     ]
+    },
+    {
+     "name": "GetPolicyVersion",
+     "access": "Read",
+     "resources": [
+      "policy"
+     ]
+    },
+    {
+     "name": "ListAttachedRolePolicies",
+     "access": "List",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "ListRolePolicies",
+     "access": "List",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "ListAccessKeys",
+     "access": "List",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "ListMFADevices",
+     "access": "List",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "CreateUser",
+     "access": "Write",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "DeleteUser",
+     "access": "Write",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "CreateRole",
+     "access": "Write",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "DeleteRole",
+     "access": "Write",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "CreateAccessKey",
+     "access": "Write",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "DeleteAccessKey",
+     "access": "Write",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "AddUserToGroup",
+     "access": "Write",
+     "resources": [
+      "group"
+     ]
+    },
+    {
+     "name": "PassRole",
+     "access": "Write",
+     "resources": [
+      "role"
+     ],
+     "notLogged": true
+    },
+    {
+     "name": "AttachRolePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "DetachRolePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "PutRolePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "DeleteRolePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "AttachUserPolicy",
+     "access": "Permissions management",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "PutUserPolicy",
+     "access": "Permissions management",
+     "resources": [
+      "user"
+     ]
+    },
+    {
+     "name": "CreatePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "policy"
+     ]
+    },
+    {
+     "name": "CreatePolicyVersion",
+     "access": "Permissions management",
+     "resources": [
+      "policy"
+     ]
+    },
+    {
+     "name": "UpdateAssumeRolePolicy",
+     "access": "Permissions management",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "TagRole",
+     "access": "Tagging",
+     "resources": [
+      "role"
+     ]
+    }
+   ]
+  },
+  {
+   "prefix": "sts",
+   "name": "AWS Security Token Service",
+   "eventSource": "sts.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "role",
+     "arn": "arn:${Partition}:iam::${Account}:role/${RoleNameWithPath}",
+     "arnParams": [
+      "roleArn"
+     ],
+     "params": {}
+    }
+   ],
+   "actions": [
+    {
+     "name": "AssumeRole",
+     "access": "Write",
+     "resources": [
+      "role"
+     ]
+    },
+    {
+     "name": "TagSession",
+     "access": "Tagging",
+     "resources": [
+      "role"
+     ],
+     "events": []
+    },
+    {
+     "name": "GetCallerIdentity",
+     "access": "Read",
+     "resources": [],
+     "noAuth": true
+    },
+    {
+     "name": "GetSessionToken",
+     "access": "Read",
+     "resources": []
+    },
+    {
+     "name": "GetAccessKeyInfo",
+     "access": "Read",
+     "resources": []
+    },
+    {
+     "name": "DecodeAuthorizationMessage",
+     "access": "Write",
+     "resources": []
+    }
+   ]
+  },
+  {
+   "prefix": "ec2",
+   "name": "Amazon EC2",
+   "eventSource": "ec2.amazonaws.com",
+   "resourceTypes": [
+    {
+     "name": "instance",
+     "arn": "arn:${Partition}:ec2:${Region}:${Account}:instance/${InstanceId}",
+     "cloudTrailType": "AWS::EC2::Instance",
+     "params": {
+      "InstanceId": [
+       "instancesSet.items[].instanceId",
+       "instanceId|requirePrefix:i-",
+       "resourcesSet.items[].resourceId|requirePrefix:i-"
+      ]
+     }
+    },
+    {
+     "name": "volume",
+     "arn": "arn:${Partition}:ec2:${Region}:${Account}:volume/${VolumeId}",
+     "params": {
+      "VolumeId": [
+       "volumeId",
+       "resourcesSet.items[].resourceId|requirePrefix:vol-"
+      ]
+     }
+    },
+    {
+     "name": "security-group",
+     "arn": "arn:${Partition}:ec2:${Region}:${Account}:security-group/${SecurityGroupId}",
+     "params": {
+      "SecurityGroupId": [
+       "groupId"
+      ]
+     }
+    }
+   ],
+   "actions": [
+    {
+     "name": "DescribeInstances",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeVolumes",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeSecurityGroups",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeImages",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeSubnets",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeVpcs",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeRegions",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "DescribeSnapshots",
+     "access": "List",
+     "resources": []
+    },
+    {
+     "name": "StartInstances",
+     "access": "Write",
+     "resources": [
+      "instance"
+     ]
+    },
+    {
+     "name": "StopInstances",
+     "access": "Write",
+     "resources": [
+      "instance"
+     ]
+    },
+    {
+     "name": "RebootInstances",
+     "access": "Write",
+     "resources": [
+      "instance"
+     ]
+    },
+    {
+     "name": "TerminateInstances",
+     "access": "Write",
+     "resources": [
+      "instance"
+     ]
+    },
+    {
+     "name": "RunInstances",
+     "access": "Write",
+     "resources": []
+    },
+    {
+     "name": "AttachVolume",
+     "access": "Write",
+     "resources": [
+      "volume",
+      "instance"
+     ],
+     "resourceMode": "all"
+    },
+    {
+     "name": "DetachVolume",
+     "access": "Write",
+     "resources": [
+      "volume",
+      "instance"
+     ],
+     "resourceMode": "all"
+    },
+    {
+     "name": "CreateSnapshot",
+     "access": "Write",
+     "resources": [
+      "volume"
+     ]
+    },
+    {
+     "name": "CreateSecurityGroup",
+     "access": "Write",
+     "resources": []
+    },
+    {
+     "name": "AuthorizeSecurityGroupIngress",
+     "access": "Write",
+     "resources": [
+      "security-group"
+     ]
+    },
+    {
+     "name": "RevokeSecurityGroupIngress",
+     "access": "Write",
+     "resources": [
+      "security-group"
+     ]
+    },
+    {
+     "name": "CreateTags",
+     "access": "Tagging",
+     "resources": [
+      "instance",
+      "volume"
+     ],
+     "resourceMode": "all"
+    },
+    {
+     "name": "DeleteTags",
+     "access": "Tagging",
+     "resources": [
+      "instance",
+      "volume"
+     ],
+     "resourceMode": "all"
+    }
+   ]
+  }
+ ]
+}
