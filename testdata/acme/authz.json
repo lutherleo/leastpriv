@@ -1,0 +1,372 @@
+{
+  "GroupDetailList": [
+    {
+      "Arn": "arn:aws:iam::111122223333:group/analysts",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyArn": "arn:aws:iam::111122223333:policy/ReadOnlyAnalyst",
+          "PolicyName": "ReadOnlyAnalyst"
+        }
+      ],
+      "GroupId": "AGPAEXAMPLEANALYSTS",
+      "GroupName": "analysts",
+      "GroupPolicyList": [],
+      "Path": "/"
+    }
+  ],
+  "Policies": [
+    {
+      "Arn": "arn:aws:iam::111122223333:policy/CiDeployerAccess",
+      "AttachmentCount": 1,
+      "DefaultVersionId": "v1",
+      "IsAttachable": true,
+      "PolicyName": "CiDeployerAccess",
+      "PolicyVersionList": [
+        {
+          "Document": {
+            "Statement": [
+              {
+                "Action": [
+                  "*"
+                ],
+                "Condition": {
+                  "StringEquals": {
+                    "aws:RequestedRegion": [
+                      "us-east-1",
+                      "us-west-2"
+                    ]
+                  }
+                },
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "AdminInDeployRegions"
+              },
+              {
+                "Action": [
+                  "iam:PassRole"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "arn:aws:iam::111122223333:role/lambda-exec-*"
+                ],
+                "Sid": "PassExecRoles"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "IsDefaultVersion": true,
+          "VersionId": "v1"
+        }
+      ]
+    },
+    {
+      "Arn": "arn:aws:iam::111122223333:policy/ReadOnlyAnalyst",
+      "AttachmentCount": 1,
+      "DefaultVersionId": "v1",
+      "IsAttachable": true,
+      "PolicyName": "ReadOnlyAnalyst",
+      "PolicyVersionList": [
+        {
+          "Document": {
+            "Statement": [
+              {
+                "Action": [
+                  "s3:Get*",
+                  "s3:List*"
+                ],
+                "Condition": {
+                  "Bool": {
+                    "aws:MultiFactorAuthPresent": "true"
+                  }
+                },
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "ReadReports"
+              },
+              {
+                "Action": [
+                  "dynamodb:Describe*",
+                  "dynamodb:Scan",
+                  "dynamodb:Query",
+                  "dynamodb:GetItem"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "arn:aws:dynamodb:*:111122223333:table/*"
+                ],
+                "Sid": "ReadMetrics"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "IsDefaultVersion": true,
+          "VersionId": "v1"
+        }
+      ]
+    },
+    {
+      "Arn": "arn:aws:iam::111122223333:policy/OpsBoundary",
+      "AttachmentCount": 1,
+      "DefaultVersionId": "v1",
+      "IsAttachable": true,
+      "PolicyName": "OpsBoundary",
+      "PolicyVersionList": [
+        {
+          "Document": {
+            "Statement": [
+              {
+                "Action": [
+                  "ec2:*",
+                  "ssm:*",
+                  "sns:*",
+                  "logs:*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "BoundaryAllow"
+              },
+              {
+                "Action": [
+                  "ec2:TerminateInstances"
+                ],
+                "Effect": "Deny",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "NoTerminate"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "IsDefaultVersion": true,
+          "VersionId": "v1"
+        }
+      ]
+    }
+  ],
+  "RoleDetailList": [
+    {
+      "Arn": "arn:aws:iam::111122223333:role/app/app-backend",
+      "AttachedManagedPolicies": [],
+      "Path": "/app/",
+      "RoleId": "AROAEXAMPLEAPPBACKEND",
+      "RoleName": "app-backend",
+      "RolePolicyList": [
+        {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "s3:*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "S3Data"
+              },
+              {
+                "Action": [
+                  "dynamodb:*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "arn:aws:dynamodb:us-east-1:111122223333:table/*"
+                ],
+                "Sid": "Orders"
+              },
+              {
+                "Action": [
+                  "sqs:*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "Queues"
+              },
+              {
+                "Action": [
+                  "kms:Decrypt",
+                  "kms:Encrypt",
+                  "kms:GenerateDataKey*",
+                  "kms:DescribeKey"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "Crypto"
+              },
+              {
+                "Action": [
+                  "secretsmanager:GetSecretValue",
+                  "secretsmanager:DescribeSecret",
+                  "secretsmanager:ListSecrets"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "Secrets"
+              },
+              {
+                "Action": [
+                  "logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:PutLogEvents",
+                  "logs:DescribeLogStreams"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "arn:aws:logs:*:*:*"
+                ],
+                "Sid": "Logs"
+              },
+              {
+                "Action": [
+                  "s3:DeleteBucket",
+                  "s3:PutBucketPolicy"
+                ],
+                "Effect": "Deny",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "ProtectBuckets"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "AppBackendAccess"
+        }
+      ]
+    },
+    {
+      "Arn": "arn:aws:iam::111122223333:role/ci-deployer",
+      "AttachedManagedPolicies": [
+        {
+          "PolicyArn": "arn:aws:iam::111122223333:policy/CiDeployerAccess",
+          "PolicyName": "CiDeployerAccess"
+        }
+      ],
+      "Path": "/",
+      "RoleId": "AROAEXAMPLECIDEPLOYER",
+      "RoleName": "ci-deployer",
+      "RolePolicyList": []
+    },
+    {
+      "Arn": "arn:aws:iam::111122223333:role/ops-automation",
+      "AttachedManagedPolicies": [],
+      "Path": "/",
+      "PermissionsBoundary": {
+        "PermissionsBoundaryArn": "arn:aws:iam::111122223333:policy/OpsBoundary",
+        "PermissionsBoundaryType": "Policy"
+      },
+      "RoleId": "AROAEXAMPLEOPSAUTOMAT",
+      "RoleName": "ops-automation",
+      "RolePolicyList": [
+        {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "ec2:*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "Compute"
+              },
+              {
+                "Action": [
+                  "ssm:GetParameter*",
+                  "ssm:PutParameter"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "arn:aws:ssm:us-east-1:111122223333:parameter/ops/*"
+                ],
+                "Sid": "Params"
+              },
+              {
+                "Action": [
+                  "sns:Publish"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "Alerts"
+              },
+              {
+                "Action": [
+                  "iam:*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "*"
+                ],
+                "Sid": "LegacyIamAccess"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "OpsAccess"
+        }
+      ]
+    },
+    {
+      "Arn": "arn:aws:iam::111122223333:role/legacy-reporting",
+      "AttachedManagedPolicies": [],
+      "Path": "/",
+      "RoleId": "AROAEXAMPLELEGACYREPO",
+      "RoleName": "legacy-reporting",
+      "RolePolicyList": [
+        {
+          "PolicyDocument": "%7B%22Statement%22%3A%5B%7B%22Action%22%3A%5B%22s3%3AGetObject%22%2C%22s3%3AListBucket%22%5D%2C%22Effect%22%3A%22Allow%22%2C%22Resource%22%3A%5B%22arn%3Aaws%3As3%3A%3A%3Aacme-legacy%22%2C%22arn%3Aaws%3As3%3A%3A%3Aacme-legacy%2F%2A%22%5D%2C%22Sid%22%3A%22LegacyRead%22%7D%2C%7B%22Action%22%3A%5B%22dynamodb%3AScan%22%2C%22dynamodb%3AQuery%22%5D%2C%22Effect%22%3A%22Allow%22%2C%22Resource%22%3A%5B%22arn%3Aaws%3Adynamodb%3Aus-east-1%3A111122223333%3Atable%2Flegacy-reports%22%5D%2C%22Sid%22%3A%22LegacyTable%22%7D%5D%2C%22Version%22%3A%222012-10-17%22%7D",
+          "PolicyName": "LegacyReporting"
+        }
+      ]
+    }
+  ],
+  "UserDetailList": [
+    {
+      "Arn": "arn:aws:iam::111122223333:user/analyst-01",
+      "AttachedManagedPolicies": [],
+      "GroupList": [
+        "analysts"
+      ],
+      "Path": "/",
+      "UserId": "AIDAEXAMPLEANALYST01",
+      "UserName": "analyst-01",
+      "UserPolicyList": [
+        {
+          "PolicyDocument": {
+            "Statement": [
+              {
+                "Action": [
+                  "ssm:GetParameter",
+                  "ssm:GetParameters"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                  "arn:aws:ssm:us-east-1:111122223333:parameter/analytics/*"
+                ],
+                "Sid": "AnalyticsParams"
+              }
+            ],
+            "Version": "2012-10-17"
+          },
+          "PolicyName": "AnalyticsParams"
+        }
+      ]
+    }
+  ]
+}
