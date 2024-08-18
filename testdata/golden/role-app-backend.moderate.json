@@ -1,0 +1,102 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowDynamodb",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:111122223333:table/orders"
+    },
+    {
+      "Sid": "AllowDynamodbN2",
+      "Effect": "Allow",
+      "Action": "dynamodb:Query",
+      "Resource": "arn:aws:dynamodb:us-east-1:111122223333:table/orders/index/by-customer"
+    },
+    {
+      "Sid": "AllowKms",
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt",
+        "kms:GenerateDataKey"
+      ],
+      "Resource": "arn:aws:kms:us-east-1:111122223333:key/1a2b3c4d-5e6f-4a1b-8c2d-0123456789ab"
+    },
+    {
+      "Sid": "AllowLogs",
+      "Effect": "Allow",
+      "Action": "logs:CreateLogStream",
+      "Resource": "arn:aws:logs:us-east-1:111122223333:log-group:/acme/app-backend"
+    },
+    {
+      "Sid": "AllowS3",
+      "Effect": "Allow",
+      "Action": "s3:DeleteObject",
+      "Resource": "arn:aws:s3:::acme-app-data/exports/tenant-04/*"
+    },
+    {
+      "Sid": "AllowS3N2",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": [
+        "arn:aws:s3:::acme-app-data/uploads/2026/06/29/*",
+        "arn:aws:s3:::acme-app-data/uploads/2026/06/30/*",
+        "arn:aws:s3:::acme-app-data/uploads/2026/07/*",
+        "arn:aws:s3:::acme-app-data/uploads/2026/08/*",
+        "arn:aws:s3:::acme-app-data/uploads/2026/09/*"
+      ]
+    },
+    {
+      "Sid": "AllowS3N3",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::acme-app-data"
+    },
+    {
+      "Sid": "AllowS3N4",
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": [
+        "arn:aws:s3:::acme-app-data/exports/*",
+        "arn:aws:s3:::acme-app-data/uploads/2026/*"
+      ]
+    },
+    {
+      "Sid": "AllowSecretsmanager",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": "arn:aws:secretsmanager:us-east-1:111122223333:secret:acme/app/db-Xk3P9q"
+    },
+    {
+      "Sid": "AllowSqs",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage"
+      ],
+      "Resource": "arn:aws:sqs:us-east-1:111122223333:order-jobs"
+    },
+    {
+      "Sid": "AllowSqsN2",
+      "Effect": "Allow",
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:us-east-1:111122223333:order-events"
+    },
+    {
+      "Sid": "ProtectBuckets",
+      "Effect": "Deny",
+      "Action": [
+        "s3:DeleteBucket",
+        "s3:PutBucketPolicy"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
