@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # Same gate as local development: gofmt check, golangci-lint (zero
+    # issues), go build + go vet, tests with the 80% coverage threshold.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.27.x'
+          cache: true
+      # Go 1.27.2 raised the compiler's export-data format to version 5.
+      # golangci-lint must be built on golang.org/x/tools >= v0.50.0 to read
+      # it (v2.14.0+); v2.13.x fails with "export data version 5 is greater
+      # than maximum supported version 4" while type-checking the stdlib.
+      - name: Install golangci-lint
+        run: go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0
+      - name: make check
+        run: make check
+      - name: Fixtures are reproducible
+        run: make fixtures && git diff --exit-code testdata/
+      - name: Offline demo
+        run: make demo
+      - name: Held-out evaluation
+        run: make eval
